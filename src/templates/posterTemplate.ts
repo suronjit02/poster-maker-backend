@@ -1,4 +1,31 @@
-export const generatePosterHTML = (): string => {
+interface PosterData {
+  headlineText: string;
+  name: string;
+  designation: string;
+  photoUrls: string[];
+  backgroundColor: string;
+  accentColor: string;
+  textColor: string;
+}
+
+export const generatePosterHTML = (data: PosterData): string => {
+  const {
+    headlineText,
+    name,
+    designation,
+    photoUrls,
+    backgroundColor,
+    accentColor,
+    textColor,
+  } = data;
+
+  const photosHTML = photoUrls
+    .map(
+      (url) =>
+        `<div class="photo-placeholder" style="background-image: url('${url}')"></div>`,
+    )
+    .join("");
+
   return `
 <!DOCTYPE html>
 <html lang="bn">
@@ -15,11 +42,11 @@ export const generatePosterHTML = (): string => {
       width: 1200px;
       height: 1600px;
       font-family: "Noto Sans Bengali", sans-serif;
-      background: linear-gradient(180deg, #0b6623 0%, #d32f2f 100%);
+      background: linear-gradient(180deg, ${backgroundColor} 0%, ${accentColor} 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: white;
+      color: ${textColor};
     }
 
     .headline {
@@ -40,7 +67,9 @@ export const generatePosterHTML = (): string => {
       width: 220px;
       height: 220px;
       border-radius: 50%;
-      background: #ccc;
+      background-color: #ccc;
+      background-size: cover;
+      background-position: center;
       border: 6px solid white;
     }
 
@@ -65,17 +94,15 @@ export const generatePosterHTML = (): string => {
   </style>
 </head>
 <body>
-  <div class="headline">মহান বিজয় দিবস</div>
+  <div class="headline">${headlineText}</div>
 
   <div class="photos">
-    <div class="photo-placeholder"></div>
-    <div class="photo-placeholder"></div>
-    <div class="photo-placeholder"></div>
+    ${photosHTML}
   </div>
 
   <div class="footer">
-    <div class="name">তোফায়েল আহমেদ</div>
-    <div class="designation">সাধারণ সম্পাদক, ঢাকা মহানগর</div>
+    <div class="name">${name}</div>
+    <div class="designation">${designation}</div>
   </div>
 </body>
 </html>
