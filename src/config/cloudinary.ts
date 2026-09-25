@@ -7,8 +7,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET as string,
 });
 
-console.log("Cloud Name:", process.env.CLOUDINARY_CLOUD_NAME);
-console.log("API Key:", process.env.CLOUDINARY_API_KEY);
+// console.log("Cloud Name:", process.env.CLOUDINARY_CLOUD_NAME);
+// console.log("API Key:", process.env.CLOUDINARY_API_KEY);
 
 export const uploadToCloudinary = (fileBuffer: Buffer): Promise<string> => {
   return new Promise((resolve, reject) => {
